@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Add Author</title>
+</head>
+<body>
+    <div class="container ">
+        <div class="row " style="width:100% ;">
+            <div class="col sm-6 border border-danger">
+                <h1 class="text-center fst-italic text-danger">
+                    Add Author:
+                </h1>
+                <!-- Adding new author form -->
+                <form action="/author/proccessAddAuthor" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" name="authorFirst" class="form-control border border-danger" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <input type="text" name="authorLast" class="form-control border border-danger" placeholder="Last name" aria-label="Last name">
+                        </div>
+                        <div class="row m-3 form-floating d-flex justify-content-start">
+                            <label name ="authorsDesc">Description:</label>
+                            <input class="form-control border border-danger mx-auto" id="floatingTextarea2"  placeholder="Leave a comment here" style="height: 100px; width: 50%;" type = "text" name="authorDescInput">
+                        </div>
+                        <button class="btn btn-danger shadow-sm mb-5" type="submit" name="submitAuthor" style="width:30% ;margin:0 auto;">Add Author</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Table of authors -->
+            <div class="col sm-6">
+                <form action="/author/{{author.id}}" method="post">
+                <table class="table">
+                    <caption>List of Authors</caption>
+                    <tr class="table-danger">
+                        <th>ID</th>
+                        <th >Name</th>
+                        <th>Action</th>
+                    </tr>
+                    {%for author in Authors %}
+                    <tr>
+                        <td>{{author.id}}</td>
+                        <td>{{author.first_name}} {{author.last_name}}</td>
+                        <td><a href="author/{{author.id}}">Views</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

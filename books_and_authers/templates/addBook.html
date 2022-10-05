@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Add Books</title>
+</head>
+<body>
+    <div class="container d-flex p-2 ">
+        <div class="row " style="width:100% ;">
+            <div class="col sm-6 border border-danger" style="height: 70%;">
+                <h1 >
+                    Add a Books:
+                </h1>
+                <!-- Adding new book form -->
+                <form action="/proccessAddBook" method="post" class="d-flex flex-column justify-content-between">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <div class="col-sm-6  d-flex align-items-center justify-content-center">
+                            <label class="col-sm-2 col-form-label" name="Bookstitle">Title:</label>
+                        <div class="col-sm-10">
+                                <input class="usernametext form-control border border-danger" type = "text" name="TitleInput" placeholder="Type the Title for the Book!">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3 form-floating d-flex justify-content-start">
+                        <label name ="BooksDesc">Description:</label>
+                        <input class="form-control border border-danger mx-auto" id="floatingTextarea2"  placeholder="Leave a comment here" style="height: 100px; width: 50%;" type = "text" name="DescInput">
+                    </div>
+                    <button class="btn btn-warning shadow-sm mb-5" type="submit" name="submitBook" style="width:30% ;margin:0 auto;">Submit</button>
+            </form>
+            </div>
+            <!-- Table of books -->
+            <div class="col sm-6">
+                <form action="/book/{{book.id}}" method="post">
+                <table class="table">
+                    <caption>List of Books</caption>
+                    <tr class="table-danger">
+                        <th>ID</th>
+                        <th >Ttile</th>
+                        <th>Action</th>
+                    </tr>
+                    {%for book in Books%}
+                    <tr>
+                        <td>{{book.id}}</td>
+                        <td>{{book.title}}</td>
+                        <td><a href="book/{{book.id}}">Views</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

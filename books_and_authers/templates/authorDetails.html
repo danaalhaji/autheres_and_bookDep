@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>{{Authors.first_name}} Details</title>
+</head>
+<body>
+    <div class="container d-flex flex-column border border-danger p-2">
+        <!-- Author Details -->
+        <h1 class="text-center fst-italic text-danger">{{Author.first_name}} {{Author.last_name}}</h1>
+        <div class="text-center fst-italic text-black-50">
+            <p><strong>ID : {{Author.id}}</p></strong>
+        </div>
+        <br>
+        <h2 class="text-danger">Books</h2>
+        <ul>
+            {%for book in Author.books.all %}
+            <li class="font-monospace">
+                {{book.title}}
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- List of all books and adding books to author -->
+        <form class="d-flex" action="/author/addBookAuther/{{Author.id}}" method="post" >
+            {% csrf_token %}
+            <select class="form-select" style="width:20% ;" name="booksOptions">
+                {% for book in Books %}
+                {%if book not in Author.books.all%}
+                <option value ="{{book.id}}">{{book.title}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <button class="btn btn-danger shadow-sm ms-3" type="submit" name="chooseAuther">Add</button>
+        </form>
+    </div>
+</body>
+</html>
+</body>
+</html>
